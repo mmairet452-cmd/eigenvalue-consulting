@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — Eigenvalue Consulting</title>
+  <meta name="description" content="Submit your application to work with Eigenvalue Consulting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --dark:  #0E1E14; --dark2: #162519; --dark3: #1C2F1F;
+      --gold:  #C9A84C; --gold2: #E8C97A; --gold3: #A07838;
+      --cream: #F5EDD6; --muted: #8A9E8D; --radius: 4px;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Jost', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--dark); color: var(--cream); font-family: var(--sans); font-weight: 300; line-height: 1.7; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      background: rgba(14,30,20,0.97);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--gold); }
+    .nav-logo span { color: var(--cream); font-weight: 300; }
+    .nav-back { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold); }
+
+    .page { max-width: 720px; margin: 0 auto; padding: 4rem 5vw 6rem; }
+
+    /* Steps */
+    .steps { display: flex; align-items: stretch; gap: 0; margin-bottom: 3.5rem; }
+    .step { display: flex; align-items: center; gap: 0.6rem; flex: 1; padding-bottom: 0.8rem; border-bottom: 2px solid rgba(201,168,76,0.1); transition: border-color 0.3s; }
+    .step.active { border-color: var(--gold); }
+    .step.done { border-color: rgba(201,168,76,0.35); }
+    .step-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 500; border: 1px solid rgba(201,168,76,0.2); color: var(--muted); flex-shrink: 0; transition: all 0.3s; }
+    .step.active .step-num { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+    .step.done .step-num { background: rgba(201,168,76,0.15); color: var(--gold); border-color: rgba(201,168,76,0.4); }
+    .step-text { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .step.active .step-text { color: var(--gold2); }
+    .step-gap { width: 1.2rem; flex-shrink: 0; }
+
+    /* Package banner */
+    .pkg-banner { background: var(--dark2); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold3); border-radius: 0 var(--radius) var(--radius) 0; padding: 1rem 1.4rem; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+    .pkg-banner-name { font-family: var(--serif); font-size: 1.1rem; color: var(--cream); }
+    .pkg-banner-detail { font-size: 0.75rem; color: var(--muted); }
+    .pkg-banner-price { font-family: var(--serif); font-size: 1.4rem; color: var(--gold); }
+
+    /* Section titles */
+    .form-section { margin-bottom: 2.2rem; }
+    .form-section-title { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold3); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 1rem; }
+    .form-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.1); }
+
+    /* Fields */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .field label .req { color: var(--gold3); margin-left: 2px; }
+    .field input, .field select, .field textarea { width: 100%; background: var(--dark2); border: 1px solid rgba(201,168,76,0.15); color: var(--cream); font-family: var(--sans); font-size: 0.9rem; font-weight: 300; padding: 0.85rem 1rem; border-radius: var(--radius); outline: none; transition: border-color 0.2s; appearance: none; }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(138,158,141,0.4); }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold3); }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field select option { background: var(--dark2); }
+
+    /* Contact preference pills */
+    .pref-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pref-pill { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid rgba(201,168,76,0.18); color: var(--muted); border-radius: 100px; cursor: pointer; transition: all 0.2s; user-select: none; }
+    .pref-pill.selected { background: rgba(201,168,76,0.1); border-color: var(--gold3); color: var(--gold2); }
+
+    /* Consent */
+    .consent-box { background: var(--dark2); border: 1px solid rgba(201,168,76,0.12); border-radius: var(--radius); padding: 1.4rem 1.6rem; margin-bottom: 2rem; }
+    .consent-box p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .consent-check { display: flex; align-items: flex-start; gap: 0.8rem; cursor: pointer; }
+    .consent-check input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; border: 1px solid rgba(201,168,76,0.3); background: var(--dark); border-radius: 3px; appearance: none; cursor: pointer; margin-top: 3px; transition: all 0.2s; }
+    .consent-check input[type="checkbox"]:checked { background: var(--gold3); border-color: var(--gold3); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%230E1E14' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E"); background-size: 80%; background-repeat: no-repeat; background-position: center; }
+    .consent-check span { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .consent-check span a { color: var(--gold3); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* Buttons */
+    .submit-btn { width: 100%; padding: 1.1rem; background: var(--gold); color: var(--dark); font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .submit-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .submit-note { font-size: 0.7rem; color: var(--muted); text-align: center; margin-top: 0.8rem; letter-spacing: 0.04em; }
+
+    /* Stripe screen */
+    #stripe-screen { display: none; text-align: center; padding: 3rem 1rem; }
+    #stripe-screen h2 { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; color: var(--cream); margin-bottom: 0.6rem; }
+    #stripe-screen h2 em { color: var(--gold2); font-style: italic; }
+    #stripe-screen > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
+    .stripe-amount-box { background: var(--dark2); border: 1px solid rgba(201,168,76,0.2); border-radius: var(--radius); padding: 1.5rem 2rem; max-width: 380px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .stripe-amount-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .stripe-amount-label span { display: block; font-size: 0.65rem; color: rgba(138,158,141,0.6); margin-top: 0.2rem; }
+    .stripe-amount-val { font-family: var(--serif); font-size: 2.2rem; color: var(--gold); }
+    .stripe-pay-btn { display: inline-block; padding: 1rem 3rem; background: var(--gold); color: var(--dark); font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; border-radius: var(--radius); cursor: pointer; border: none; transition: background 0.2s; }
+    .stripe-pay-btn:hover { background: var(--gold2); }
+    .stripe-security { font-size: 0.7rem; color: var(--muted); margin-top: 1rem; letter-spacing: 0.06em; }
+
+    /* Success screen */
+    #success-screen { display: none; text-align: center; padding: 3rem 1rem; }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 1.6rem; }
+    #success-screen h2 { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; color: var(--cream); margin-bottom: 0.6rem; }
+    #success-screen h2 em { color: var(--gold2); font-style: italic; }
+    #success-screen > p { color: var(--muted); font-size: 0.88rem; max-width: 460px; margin: 0 auto 0.4rem; }
+    .success-next { margin: 2.5rem auto 0; padding: 1.5rem 2rem; background: var(--dark2); border: 1px solid rgba(201,168,76,0.15); border-radius: var(--radius); max-width: 460px; text-align: left; }
+    .success-next strong { color: var(--gold2); display: block; margin-bottom: 0.6rem; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .success-next p { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
+
+    @media (max-width: 560px) {
+      .field-row { grid-template-columns: 1fr; }
+      .step-text { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">EIGENVALUE <span>CONSULTING</span></div>
+  <a href="index.html#pricing" class="nav-back">← Back to pricing</a>
+</nav>
+
+<div class="page">
+
+  <!-- Progress steps -->
+  <div class="steps">
+    <div class="step active" id="s1"><div class="step-num">1</div><div class="step-text">Application</div></div>
+    <div class="step-gap"></div>
+    <div class="step" id="s2"><div class="step-num">2</div><div class="step-text">Pay Deposit</div></div>
+    <div class="step-gap"></div>
+    <div class="step" id="s3"><div class="step-num">3</div><div class="step-text">Confirmed</div></div>
+  </div>
+
+  <!-- Package banner -->
+  <div class="pkg-banner">
+    <div>
+      <div class="pkg-banner-name" id="pkg-name">Advisory Session</div>
+      <div class="pkg-banner-detail" id="pkg-detail">50% deposit · Due now </div>
+    </div>
+    <div class="pkg-banner-price" id="pkg-price">$375 deposit</div>
+  </div>
+    <div class="pkg-banner">
+    <div>
+      <div class="pkg-banner-name" id="pkg-name">Custom Project</div>
+      <div class="pkg-banner-detail" id="pkg-detail">50% deposit · Due now </div>
+    </div>
+    <div class="pkg-banner-price" id="pkg-price">$312.50 deposit due now</div>
+  </div>
+
+  <!-- STEP 1: APPLICATION -->
+  <div id="app-step">
+    <div style="margin-bottom:2.5rem;">
+      <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:0.5rem;">Step 1 of 3 — Application</div>
+      <h1 style="font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.5rem);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:0.5rem;">Tell us about <em style="color:var(--gold2);font-style:italic;">your business</em></h1>
+      <p style="color:var(--muted);font-size:0.86rem;">This application initiates your engagement. All information is confidential and used solely to prepare your advisory materials.</p>
+    </div>
+
+    <form id="app-form" novalidate>
+
+      <div class="form-section">
+        <div class="form-section-title">Contact Information</div>
+        <div class="field-row">
+          <div class="field"><label>First Name <span class="req">*</span></label><input type="text" name="first_name" placeholder="Alexandra" required /></div>
+          <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" name="last_name" placeholder="Smith" required /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" name="email" placeholder="alex@email.com" required /></div>
+          <div class="field"><label>Phone Number</label><input type="tel" name="phone" placeholder="+1 (305) 000-0000" /></div>
+        </div>
+        <div class="field">
+          <label>Preferred Contact Method <span class="req">*</span></label>
+          <div class="pref-group">
+            <div class="pref-pill selected" data-val="email" onclick="selectPref(this)">Email</div>
+            <div class="pref-pill" data-val="phone" onclick="selectPref(this)">Phone</div>
+          </div>
+          <input type="hidden" name="contact_pref" id="cpref" value="email" />
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Company Profile</div>
+        <div class="field-row">
+          <div class="field"><label>Company Name <span class="req">*</span></label><input type="text" name="company" placeholder="Acme Corp" required /></div>
+          <div class="field"><label>Industry / Sector</label><input type="text" name="industry" placeholder="e.g. Real Estate, SaaS, Finance" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Company Size</label>
+            <select name="company_size">
+              <option value="">Select...</option>
+              <option value="solo">Solo / Freelance</option>
+              <option value="2-10">2–10 employees</option>
+              <option value="11-50">11–50 employees</option>
+              <option value="51-200">51–200 employees</option>
+              <option value="200+">200+ employees</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Est. Annual Revenue (optional)</label>
+            <select name="revenue">
+              <option value="">Prefer not to say</option>
+              <option value="pre-revenue">Pre-revenue / Startup</option>
+              <option value="under-250k">Under $250K</option>
+              <option value="250k-1m">$250K – $1M</option>
+              <option value="1m-5m">$1M – $5M</option>
+              <option value="5m+">$5M+</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-section">
+        <div class="form-section-title">Challenge &amp; Goals</div>
+        <div class="field">
+          <label>Describe your primary challenge <span class="req">*</span></label>
+          <textarea name="problem" placeholder="What's the core issue you're trying to solve? Be as specific as possible..." required></textarea>
+        </div>
+        <div class="field">
+          <label>What does success look like to you? <span class="req">*</span></label>
+          <textarea name="success_vision" placeholder="What would you like to have achieved at the end of this engagement?" required style="min-height:85px;"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Timeline / Urgency <span class="req">*</span></label>
+            <select name="urgency" required>
+              <option value="">Select...</option>
+              <option value="asap">ASAP — immediate need</option>
+              <option value="1month">Within 1 month</option>
+              <option value="1-3months">1–3 months</option>
+              <option value="3-6months">3–6 months</option>
+              <option value="exploring">Just exploring options</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>How did you hear about us?</label>
+            <select name="referral_source">
+              <option value="">Select...</option>
+              <option value="referral">Personal referral</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="google">Google search</option>
+              <option value="social">Social media</option>
+              <option value="apollo">Direct outreach (Apollo)</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Anything else we should know?</label>
+          <textarea name="notes" placeholder="Prior consulting experience, key stakeholders, specific constraints..." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+
+      <div class="consent-box">
+        <p>By submitting this application and completing payment, you initiate a professional services engagement with Eigenvalue Consulting. A formal services agreement will be sent to your email within 24 hours of payment confirmation, outlining deliverables, timelines, and the full payment schedule.</p>
+        <label class="consent-check">
+          <input type="checkbox" name="consent" id="consent" required />
+          <span>I understand this application initiates a binding engagement upon payment, and I agree to receive the formal services agreement by email. <a href="#">Privacy Policy</a>.</span>
+        </label>
+      </div>
+
+      <button type="button" class="submit-btn" id="submit-btn" onclick="submitApp()">
+        Continue to Payment →
+      </button>
+      <p class="submit-note">Application is saved before payment. Secure checkout via Stripe.</p>
+
+    </form>
+  </div>
+
+  <!-- STEP 2: STRIPE PAYMENT -->
+  <div id="stripe-screen">
+    <h2>One step <em>away.</em></h2>
+    <p>Application received. Select your package below and complete your deposit.</p>
+
+    <!-- Two package boxes -->
+    <div style="max-width:460px;margin:0 auto 1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div id="sw-session" onclick="switchPkg('session')" style="background:var(--dark2);border:2px solid var(--gold);border-radius:6px;padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:all 0.2s;">
+        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Advisory Session</div>
+        <div style="font-family:var(--serif);font-size:2rem;color:var(--gold);line-height:1;margin-bottom:0.25rem;">$375</div>
+        <div style="font-size:0.62rem;color:var(--gold3);">50% deposit</div>
+        <div style="font-size:0.6rem;color:var(--muted);margin-top:0.2rem;">$375 balance on delivery</div>
+      </div>
+      <div id="sw-project" onclick="switchPkg('project')" style="background:var(--dark2);border:1px solid rgba(201,168,76,0.2);border-radius:6px;padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:all 0.2s;">
+        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Custom Project</div>
+        <div style="font-family:var(--serif);font-size:2rem;color:var(--gold);line-height:1;margin-bottom:0.25rem;">$312.50</div>
+        <div style="font-size:0.62rem;color:var(--gold3);">25% deposit</div>
+        <div style="font-size:0.6rem;color:var(--muted);margin-top:0.2rem;">$937.50 balance on delivery</div>
+      </div>
+    </div>
+
+    <!-- Selected summary -->
+    <div class="stripe-amount-box">
+      <div>
+        <div class="stripe-amount-label" id="stripe-pkg-label">Advisory Session<span>Deposit due today</span></div>
+      </div>
+      <div class="stripe-amount-val" id="stripe-amt">$375</div>
+    </div>
+
+    <!-- Optional document upload -->
+    <div style="max-width:380px;margin:0 auto 1.8rem;text-align:left;">
+      <div style="font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold3);margin-bottom:0.5rem;">Attach documents <span style="color:var(--muted);text-transform:none;letter-spacing:0;font-size:0.68rem;">— optional</span></div>
+      <div onclick="document.getElementById('doc-upload').click()" style="border:1px dashed rgba(201,168,76,0.25);border-radius:4px;padding:1rem;text-align:center;cursor:pointer;background:var(--dark2);">
+        <div style="font-size:0.9rem;color:var(--gold3);margin-bottom:0.2rem;">↑</div>
+        <div style="font-size:0.76rem;color:var(--cream);margin-bottom:0.1rem;">Click to attach files</div>
+        <div style="font-size:0.64rem;color:var(--muted);">PDF, Excel, Word · financials, contracts, plans</div>
+        <input type="file" id="doc-upload" multiple accept=".pdf,.xlsx,.xls,.doc,.docx,.ppt,.pptx,.csv" style="display:none" onchange="handleUpload(this.files)" />
+      </div>
+      <div id="file-list" style="margin-top:0.4rem;display:flex;flex-direction:column;gap:0.3rem;"></div>
+    </div>
+
+    <button class="stripe-pay-btn" onclick="goStripe()">Pay Deposit Securely</button>
+    <div class="stripe-security">🔒 &nbsp;Secured by Stripe &nbsp;·&nbsp; SSL encrypted &nbsp;·&nbsp; Receipt emailed automatically</div>
+  </div>
+
+
+  <!-- STEP 3: SUCCESS -->
+  <div id="success-screen">
+    <div class="success-icon">✓</div>
+    <h2>You're <em>confirmed.</em></h2>
+    <p>Payment received. Your services agreement is being prepared.</p>
+    <div class="success-next">
+      <strong>What happens next</strong>
+      <p>1. Formal services agreement arrives by email.</p>
+      <p>2. Review and sign the agreement to start the solution</p>
+      <p>3. Work begins on your timeline.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── Package detection ───────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+  const pkg = params.get('pkg') || 'session';
+
+  const PKGS = {
+    session: { name: 'Advisory Session', detail: '50% deposit · Due now', price: '$375 deposit', amount: '$375', link: null },
+    project: { name: 'Custom Project',   detail: '25% deposit · Due now', price: '$312.50 deposit', amount: '$312.50', link: null },
+  };
+  const P = PKGS[pkg] || PKGS.session;
+
+  document.getElementById('pkg-name').textContent   = P.name;
+  document.getElementById('pkg-detail').textContent = P.detail;
+  document.getElementById('pkg-price').textContent  = P.price;
+
+  // ── Contact preference ──────────────────────────────
+  function selectPref(el) {
+    document.querySelectorAll('.pref-pill').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('cpref').value = el.dataset.val;
+  }
+
+  // ── Step transitions ────────────────────────────────
+  function markDone(id) {
+    const el = document.getElementById(id);
+    el.classList.remove('active');
+    el.classList.add('done');
+  }
+  function markActive(id) { document.getElementById(id).classList.add('active'); }
+
+  // ── Submit application ──────────────────────────────
+  let appData = {};
+
+  async function submitApp() {
+    const form = document.getElementById('app-form');
+    const btn  = document.getElementById('submit-btn');
+
+    // Validate required fields
+    let valid = true;
+    form.querySelectorAll('[required]').forEach(f => {
+      const fail = (f.type === 'checkbox') ? !f.checked : !f.value.trim();
+      if (fail) { f.style.borderColor = 'rgba(201,168,76,0.7)'; f.style.outline = '1px solid rgba(201,168,76,0.4)'; valid = false; }
+      else       { f.style.borderColor = ''; f.style.outline = ''; }
+    });
+    if (!valid) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    appData = Object.fromEntries(new FormData(form));
+    appData.package      = pkg;
+    appData.package_name = P.name;
+    appData.deposit      = P.amount;
+    appData.submitted_at = new Date().toISOString();
+
+    // ── SUPABASE: save application ──────────────────
+    // const { data, error } = await supabase
+    //   .from('applications')
+    //   .insert([appData])
+    //   .select();
+    // if (error) { btn.textContent = 'Error — try again'; btn.disabled = false; return; }
+    // appData.id = data[0].id;
+
+    // ── RESEND: notify you by email ─────────────────
+    // await fetch('https://api.resend.com/emails', {
+    //   method: 'POST',
+    //   headers: { 'Authorization': 'Bearer re_XXXX', 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     from: 'applications@eigenvalueconsulting.com',
+    //     to: 'max@maxeconsulting.com',
+    //     subject: `New Application: ${appData.first_name} ${appData.last_name} — ${P.name}`,
+    //     html: buildEmailHTML(appData)
+    //   })
+    // });
+
+    await new Promise(r => setTimeout(r, 700)); // remove when live
+
+    // Show Stripe step
+    document.getElementById('app-step').style.display = 'none';
+    document.getElementById('stripe-screen').style.display = 'block';
+    markDone('s1'); markActive('s2');
+    switchPkg(activePkg);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Active package selection (starts with whatever URL param said)
+  let activePkg = pkg;
+
+  function switchPkg(key) {
+    activePkg = key;
+    const np = PKGS[key];
+    document.getElementById('stripe-amt').textContent = np.amount;
+    document.getElementById('stripe-pkg-label').innerHTML = np.name + '<span>Deposit due today</span>';
+    document.getElementById('sw-session').style.border = key === 'session' ? '2px solid var(--gold)' : '1px solid rgba(201,168,76,0.2)';
+    document.getElementById('sw-project').style.border = key === 'project' ? '2px solid var(--gold)' : '1px solid rgba(201,168,76,0.2)';
+  }
+
+  function handleUpload(files) {
+    Array.from(files).forEach(function(file) {
+      const item = document.createElement('div');
+      item.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background:var(--dark3);border:1px solid rgba(201,168,76,0.1);border-radius:4px;padding:0.35rem 0.7rem;';
+      const size = file.size > 1048576 ? (file.size/1048576).toFixed(1)+'MB' : Math.round(file.size/1024)+'KB';
+      item.innerHTML = '<span style="font-size:0.75rem;color:var(--cream);">' + file.name + '</span><span style="font-size:0.65rem;color:var(--muted);margin-left:0.8rem;cursor:pointer;" onclick="this.parentElement.remove()">✕ ' + size + '</span>';
+      document.getElementById('file-list').appendChild(item);
+    });
+  }
+
+  function goStripe() {
+    const cur = PKGS[activePkg];
+    if (cur.link) {
+      window.location.href = cur.link;
+    } else {
+      // Stripe not connected — do NOT show success until payment real
+      alert('Payment link not connected yet. Paste your Stripe Payment Link URL into PKGS.' + activePkg + '.link');
+    }
+  }
+
+  // ── Called by Stripe success_url redirect ──────────
+  // Add ?paid=1 to success_url in Stripe dashboard
+  // e.g. success_url: https://eigenvalueconsulting.com/apply.html?pkg=session&paid=1
+  if (params.get('paid') === '1') {
+    document.getElementById('app-step').style.display = 'none';
+    showSuccess();
+  }
+
+  function showSuccess() {
+    document.getElementById('stripe-screen').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    markDone('s2'); markActive('s3');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // ── FRANK SENDS LEGAL AGREEMENT ─────────────────
+    // Triggered here OR by Stripe webhook (webhook is safer — use both)
+    // await fetch('/api/send-agreement', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     to: appData.email,
+    //     client_first: appData.first_name,
+    //     client_last: appData.last_name,
+    //     company: appData.company,
+    //     package_name: appData.package_name,
+    //     deposit: appData.deposit,
+    //     problem: appData.problem,
+    //     urgency: appData.urgency
+    //   })
+    // });
+    // This endpoint reads your JSON agreement template,
+    // fills in the client fields, and sends via Microsoft Graph as rfrank@
+  }
+
+  function buildEmailHTML(d) {
+    const row = (label, val, alt) => `<tr style="background:${alt?'#f9f9f9':'#fff'}"><td style="padding:7px 12px;color:#888;width:150px;font-size:13px;">${label}</td><td style="padding:7px 12px;font-size:13px;">${val||'—'}</td></tr>`;
+    return `<h2 style="font-family:Georgia,serif;color:#C9A84C;margin:0 0 16px;">New Application — ${d.package_name}</h2>
+    <table style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;">
+      ${row('Name',`${d.first_name} ${d.last_name}`)}
+      ${row('Email',d.email,1)}${row('Phone',d.phone)}
+      ${row('Prefers',d.contact_pref,1)}${row('Company',d.company)}
+      ${row('Industry',d.industry,1)}${row('Size',d.company_size)}
+      ${row('Revenue',d.revenue,1)}${row('Urgency',d.urgency)}
+      ${row('Source',d.referral_source,1)}
+      ${row('Challenge',d.problem)}
+      ${row('Success looks like',d.success_vision,1)}
+      ${row('Notes',d.notes)}
+      ${row('Package',`<strong style="color:#C9A84C;">${d.package_name} — ${d.deposit} deposit</strong>`,1)}
+    </table>`;
+  }
+</script>
+
+</body>
+</html>
