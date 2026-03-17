@@ -908,7 +908,7 @@
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
       <a href="#team">Team</a>
-      <a href="#contact" class="nav-cta">Book a Call</a>
+      <a href="#contact" class="nav-cta">Contact US</a>
     </div>
     <div class="hamburger" onclick="toggleDrawer()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -921,7 +921,7 @@
     <a href="#services" onclick="closeDrawer()">Services</a>
     <a href="#pricing" onclick="closeDrawer()">Pricing</a>
     <a href="#team" onclick="closeDrawer()">Team</a>
-    <a href="#contact" onclick="closeDrawer()">Book a Discovery Call</a>
+    <a href="#contact" onclick="closeDrawer()">Contact Us</a>
   </div>
 
   <!-- ── HERO ──────────────────────────────────────────── -->
@@ -934,7 +934,7 @@
       <div class="hero-divider"></div>
       <p class="hero-subtitle">Your Brand &nbsp;·&nbsp; Credibility &nbsp;·&nbsp; Lead Capture</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Book a Discovery Call</a>
+        <a href="#contact" class="btn-primary">Contact Us</a>
         <a href="#about" class="btn-ghost">Learn More</a>
       </div>
     </div>
@@ -1315,7 +1315,7 @@
   <section id="contact">
     <div class="contact-wrap">
       <div class="section-label reveal">Get In Touch</div>
-      <h2 class="reveal">Book a <em style="font-family:var(--serif);font-style:italic;color:var(--gold2);">Discovery Call</em></h2>
+      <h2 class="reveal">Contact <em style="font-family:var(--serif);font-style:italic;color:var(--gold2);"> Eigenvalue</em></h2>
       <p class="reveal">Tell us about your challenge. We'll respond within one business day.</p>
 
       <form class="lead-form reveal" id="lead-form" onsubmit="submitForm(event)">
@@ -1354,7 +1354,7 @@
           <textarea name="message" placeholder="Briefly describe what you're working on and how we can help..."></textarea>
         </div>
         <div class="form-submit">
-          <button type="submit" class="btn-primary">Request a Discovery Call</button>
+          <button type="submit" class="btn-primary">SEND</button>
         </div>
         <p class="form-note">We respect your privacy. No spam, ever.</p>
       </form>
@@ -1424,28 +1424,21 @@
       // const { error } = await supabase.from('leads').insert([data]);
       // if (error) { btn.textContent = 'Error — please email us directly.'; btn.disabled = false; return; }
 
-      // ── RESEND: notify max@maxeconsulting.com ────────
+      // ── RESEND: via Vercel proxy ────────────────────
       try {
-        const res = await fetch('https://api.resend.com/emails', {
+        const res = await fetch('/api/contact', {
           method: 'POST',
-          headers: { 'Authorization': 'Bearer re_2CjFmHZ7_5Sjo58xsq4Uh6sZPaWQANb8s', 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            from: 'website@eigenvalueconsulting.com',
-            to: 'max@maxeconsulting.com',
-            reply_to: data.email,
-            subject: `New Inquiry: ${data.first_name} ${data.last_name} — ${data.service || 'General'}`,
-            html: `<h2 style="color:#0F2318">New inquiry from eigenvalueconsulting.com</h2>
-              <p><b>Name:</b> ${data.first_name} ${data.last_name}</p>
-              <p><b>Email:</b> <a href="mailto:${data.email}">${data.email}</a></p>
-              <p><b>Company:</b> ${data.company || '—'}</p>
-              <p><b>Service:</b> ${data.service || '—'}</p>
-              <p><b>Message:</b><br>${data.message || '—'}</p>
-              <hr/>
-              <p style="color:#6B6B6B;font-size:12px">Sent from eigenvalueconsulting.com contact form</p>`
+            name: `${data.first_name} ${data.last_name}`,
+            email: data.email,
+            company: data.company || '—',
+            service: data.service || '—',
+            message: data.message || '—'
           })
         });
-        if(!res.ok) console.warn('Resend error:', await res.text());
-      } catch(e) { console.warn('Contact form email error:', e.message); }
+        if(!res.ok) console.warn('Contact form error:', await res.text());
+      } catch(e) { console.warn('Contact form:', e.message); }
       document.getElementById('lead-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
     }
